@@ -1,0 +1,94 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "bracketSameLine": true,
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUndeclaredDependencies": "off",
+        "noUnusedFunctionParameters": "error",
+        "noUnusedImports": { "level": "error", "fix": "safe" },
+        "useJsonImportAttributes": "error"
+      },
+      "nursery": {
+        "noDeprecatedImports": "off",
+        "noFloatingPromises": "error",
+        "noImportCycles": "error",
+        // This rule currently blows up Biome
+        //"noMisusedPromises": { "level": "error", "fix": "unsafe" },
+        "noShadow": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "error",
+        "noAwaitInLoops": "off",
+        "noDelete": "error",
+        "noNamespaceImport": "error",
+        "noReExportAll": "off",
+        "useTopLevelRegex": "error"
+      },
+      "style": {
+        "noCommonJs": "error",
+        "noInferrableTypes": "error",
+        "noParameterAssign": "error",
+        "noSubstr": "error",
+        "noUnusedTemplateLiteral": { "level": "error", "fix": "safe" },
+        "noYodaExpression": "error",
+        "useArrayLiterals": "error",
+        "useAsConstAssertion": "error",
+        "useAtIndex": "error",
+        "useBlockStatements": { "level": "error", "fix": "unsafe" },
+        "useCollapsedElseIf": "error",
+        "useCollapsedIf": "error",
+        "useDefaultParameterLast": "error",
+        "useDefaultSwitchClause": "error",
+        "useEnumInitializers": "error",
+        "useFilenamingConvention": "error",
+        "useImportType": "error",
+        "useLiteralEnumMembers": "off",
+        "useNumberNamespace": "error",
+        "useShorthandAssign": "error",
+        "useSingleVarDeclarator": "error",
+        "useConsistentObjectDefinitions": { "level": "error", "fix": "unsafe" },
+        "useNumericSeparators": "error",
+        "useObjectSpread": "error",
+        "useReadonlyClassProperties": { "level": "error", "fix": "unsafe" }
+      },
+      "suspicious": {
+        "noEmptyBlockStatements": "error",
+        "noEvolvingTypes": "error",
+        "useAwait": "error",
+        "noConstantBinaryExpressions": "error",
+        "noTsIgnore": "error",
+        "noUnassignedVariables": "error",
+        "noUselessEscapeInString": "error"
+      }
+    }
+  },
+  "files": {
+    "includes": ["**", "!**/coverage", "!**/dist", "!**/node_modules"]
+  }
+}

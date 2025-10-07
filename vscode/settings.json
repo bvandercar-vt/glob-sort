@@ -1,0 +1,21 @@
+{
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit"
+  },
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.inlineSuggest.enabled": true,
+  "editor.quickSuggestions": { "strings": true },
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "search.exclude": {
+    "**/build": true,
+    "**/dist": true,
+    "**/coverage": true
+  },
+  "typescript.enablePromptUseWorkspaceTsdk": false,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

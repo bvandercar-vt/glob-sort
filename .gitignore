@@ -1,0 +1,6 @@
+
+*.log
+Coverage
+node_modules/
+dist/
+
