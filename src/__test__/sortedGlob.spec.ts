@@ -1,7 +1,7 @@
 import path from 'node:path'
 import mockFS from 'mock-fs'
 import { expect } from 'vitest'
-import { sortedGlob } from '../sortedGlob'
+import { sortedGlob, sortedGlobSync } from '../sortedGlob'
 
 const testDir = 'cypress/tests'
 
@@ -320,45 +320,51 @@ describe('sortedGlob', () => {
       sortOrder: sortOrderReadme,
     })
 
-    expect(output3).toEqual(
-      [
-        '01-widget-cards/setup.spec.ts',
-        '01-widget-cards/booking-calendar.spec.ts',
-        '01-widget-cards/upcoming-bookings.spec.tsx',
-        '01-widget-cards/entrees.spec.ts',
-        '02-table-pages/01-entree-dinner/entree-dinner-table.spec.ts',
-        '02-table-pages/01-entree-dinner/entree-flavors-table.spec.tsx',
-        '02-table-pages/02-booking/bookings-table.spec.tsx',
-        '02-table-pages/02-booking/bookings-history-table.spec.ts',
-        '02-table-pages/entree-lunch-table.spec.ts',
-        '02-table-pages/users-table.spec.ts',
-        '02-table-pages/customers-table.spec.ts',
-        '03-view-pages/setup.spec.ts',
-        '03-view-pages/view-booking.spec.ts',
-        '03-view-pages/print-booking.spec.ts',
-        '03-view-pages/view-entree-dinner.spec.ts',
-        '03-view-pages/view-entree-lunch.spec.ts',
-        '03-view-pages/print-entree-dinner.spec.ts',
-        '03-view-pages/view-appetizer-count.spec.ts',
-        '03-view-pages/view-appetizer-supplier.spec.ts',
-        '03-view-pages/view-user.spec.ts',
-        '04-forms/booking-form/setup.spec.ts',
-        '04-forms/booking-form/new-booking.spec.ts',
-        '04-forms/booking-form/new-special-booking.spec.ts',
-        '04-forms/booking-form/edit-booking.spec.ts',
-        '04-forms/booking-form/clone-booking.spec.ts',
-        '04-forms/entree-dinner/new-entree-dinner.spec.ts',
-        '04-forms/entree-dinner/edit-entree-dinner.spec.ts',
-        '04-forms/entree-lunch/new-entree-lunch.spec.ts',
-        '04-forms/entree-lunch/edit-entree-lunch.spec.ts',
-        '04-forms/user/edit-user.spec.ts',
-        '04-forms/cake-frosting-input.spec.ts',
-        '04-forms/cake-order-input.spec.ts',
-        'misc-components/booking-status.spec.ts',
-        'misc-components/user-info-button.spec.ts',
-        'misc-components/layout.spec.ts',
-        'misc-components/site-info-button.spec.ts',
-      ].map((p) => path.normalize(p))
-    )
+    const expectedOutput3 = [
+      '01-widget-cards/setup.spec.ts',
+      '01-widget-cards/booking-calendar.spec.ts',
+      '01-widget-cards/upcoming-bookings.spec.tsx',
+      '01-widget-cards/entrees.spec.ts',
+      '02-table-pages/01-entree-dinner/entree-dinner-table.spec.ts',
+      '02-table-pages/01-entree-dinner/entree-flavors-table.spec.tsx',
+      '02-table-pages/02-booking/bookings-table.spec.tsx',
+      '02-table-pages/02-booking/bookings-history-table.spec.ts',
+      '02-table-pages/entree-lunch-table.spec.ts',
+      '02-table-pages/users-table.spec.ts',
+      '02-table-pages/customers-table.spec.ts',
+      '03-view-pages/setup.spec.ts',
+      '03-view-pages/view-booking.spec.ts',
+      '03-view-pages/print-booking.spec.ts',
+      '03-view-pages/view-entree-dinner.spec.ts',
+      '03-view-pages/view-entree-lunch.spec.ts',
+      '03-view-pages/print-entree-dinner.spec.ts',
+      '03-view-pages/view-appetizer-count.spec.ts',
+      '03-view-pages/view-appetizer-supplier.spec.ts',
+      '03-view-pages/view-user.spec.ts',
+      '04-forms/booking-form/setup.spec.ts',
+      '04-forms/booking-form/new-booking.spec.ts',
+      '04-forms/booking-form/new-special-booking.spec.ts',
+      '04-forms/booking-form/edit-booking.spec.ts',
+      '04-forms/booking-form/clone-booking.spec.ts',
+      '04-forms/entree-dinner/new-entree-dinner.spec.ts',
+      '04-forms/entree-dinner/edit-entree-dinner.spec.ts',
+      '04-forms/entree-lunch/new-entree-lunch.spec.ts',
+      '04-forms/entree-lunch/edit-entree-lunch.spec.ts',
+      '04-forms/user/edit-user.spec.ts',
+      '04-forms/cake-frosting-input.spec.ts',
+      '04-forms/cake-order-input.spec.ts',
+      'misc-components/booking-status.spec.ts',
+      'misc-components/user-info-button.spec.ts',
+      'misc-components/layout.spec.ts',
+      'misc-components/site-info-button.spec.ts',
+    ].map((p) => path.normalize(p))
+
+    expect(output3).toEqual(expectedOutput3)
+
+    const output3Sync = sortedGlobSync('./**/*.spec*', {
+      sortOrder: sortOrderReadme,
+    })
+
+    expect(output3Sync).toEqual(expectedOutput3)
   })
 })

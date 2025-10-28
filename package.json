@@ -1,6 +1,6 @@
 {
   "name": "glob-sort",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "scripts": {
     "prepack": "yarn build",
     "build": "tsup-node",

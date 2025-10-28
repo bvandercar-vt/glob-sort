@@ -1,28 +1,29 @@
 import type { GlobOptionsWithoutFileTypes } from 'node:fs'
+import { globSync } from 'node:fs'
 import { glob } from 'node:fs/promises'
 import path from 'node:path'
 
 const NUM_PREFIX = /^\d+/
 
-export async function sortedGlob(
-  pattern: string | readonly string[],
-  {
-    sortOrder = [],
-    ...globOptions
-  }: GlobOptionsWithoutFileTypes & {
-    /**
-     * Sort order. Comes after number prefix sorting. Can be string to include,
-     * or regexp to match.
-     *
-     * If no match in sort order, secondary sorting is alhpabetical.
-     *
-     * e.g. ['New', 'Edit', /^Delete/i, ]
-     */
-    sortOrder?: readonly (RegExp | string)[]
-  } = {}
-): Promise<string[]> {
-  const matches = await Array.fromAsync(glob(pattern, globOptions))
+export interface SortedGlobOptions extends GlobOptionsWithoutFileTypes {
+  /**
+   * Sort order. Comes after number prefix sorting. Can be string to include,
+   * or regexp to match.
+   *
+   * If no match in sort order, secondary sorting is alphabetical.
+   *
+   * e.g. ['New', 'Edit', /^Delete/i, ]
+   */
+  sortOrder?: readonly (RegExp | string)[]
+}
 
+/**
+ * Sorts an array of file paths using the sorting algorithm
+ */
+function sortPaths(
+  matches: string[],
+  sortOrder: SortedGlobOptions['sortOrder'] = []
+): string[] {
   // returns numeric prefix of the top-level folder for a given path, or null
   const getNumberPrefix = (filePath: string) => {
     const folderNumMatch = filePath.match(NUM_PREFIX)?.[0]
@@ -92,4 +93,26 @@ export async function sortedGlob(
 
       return 0
     })
+}
+
+/**
+ * Asynchronously get glob matches and sort them
+ */
+export async function sortedGlob(
+  pattern: string | readonly string[],
+  { sortOrder = [], ...globOptions }: SortedGlobOptions = {}
+): Promise<string[]> {
+  const matches = await Array.fromAsync(glob(pattern, globOptions))
+  return sortPaths(matches, sortOrder)
+}
+
+/**
+ * Synchronously get glob matches and sort them
+ */
+export function sortedGlobSync(
+  pattern: string | readonly string[],
+  { sortOrder = [], ...globOptions }: SortedGlobOptions = {}
+): string[] {
+  const matches = Array.from(globSync(pattern, globOptions))
+  return sortPaths(matches, sortOrder)
 }

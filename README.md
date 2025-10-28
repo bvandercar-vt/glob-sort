@@ -43,11 +43,11 @@ const specs = await sortedGlob('cypress/tests/**/*.spec*', {
 
 ```ts
 import { defineConfig } from 'cypress'
-import { sortedGlob } from 'glob-sort'
+import { sortedGlobSync } from 'glob-sort'
 
 export default defineConfig({
   e2e: {
-    specPattern: await sortedGlob('cypress/tests/**/*.spec*', {
+    specPattern: sortedGlobSync('cypress/tests/**/*.spec*', {
         sortOrder: ['setup', 'new', 'edit', /^delete.*/, 'view'],
       })
     ...
@@ -68,7 +68,7 @@ The sorting algorithm applies three levels of ordering at each folder depth:
 _Function config:_
 
 ```ts
-const specs = await sortedGlob('cypress/tests/**/*.spec*', {
+const specs = sortedGlobSync('cypress/tests/**/*.spec*', {
   sortOrder: [
     'setup',
     'booking',
@@ -251,6 +251,10 @@ misc-components/site-info-button.spec.ts
 ### `sortedGlob(pattern, options?)`
 
 Returns a Promise that resolves to an array of sorted file paths.
+
+### `sortedGlobSync(pattern, options?)`
+
+Returns an array of sorted file paths.
 
 #### Parameters
 
