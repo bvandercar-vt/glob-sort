@@ -1,16 +1,15 @@
 # glob-sort
 
-A flexible file globbing utility that sorts results by numeric prefixes and custom ordering keywords/rules. While it can be used for any file organization needs, it is particularly useful for ordering test specs (i.e. passing sorted spec files to Cypress configuration to control test execution order).
-
-If no rules are matched, sorts alphabetically (normal file system order).
+A flexible file globbing utility that sorts results by numeric prefixes and custom ordering rules. Perfect for controlling test execution order in Cypress, Playwright, or any test framework.
 
 ## Features
 
 - **Numeric prefix sorting**: Automatically sorts folders and files with numeric prefixes (e.g., `01-`, `02-`)
-- **Custom sort order**: Define your own ordering rules using strings or regex patterns
-- **Alphabetical fallback**: Falls back to alphabetical sorting when no other rules apply
+- **Custom sort order**: Define ordering rules using strings or regex patterns
+- **Alphabetical fallback**: Falls back to alphabetical sorting when no rules match
 - **Path-aware**: Sorts intelligently at each folder level in the path hierarchy
 - **TypeScript support**: Fully typed with TypeScript
+- **Zero dependencies**: Uses Node.js native `fs.promises.glob`
 
 ## Installation
 
@@ -18,9 +17,22 @@ If no rules are matched, sorts alphabetically (normal file system order).
 npm install glob-sort
 ```
 
-**Note**: Requires Node.js 22+ (uses native `fs.promises.glob`)
+**Requirements**: Node.js 22+ (uses native `fs.promises.glob`)
+
+## Quick Start
+
+```ts
+import { sortedGlob } from 'glob-sort'
+
+// With custom ordering rules
+const sortedSpecs = await sortedGlob('cypress/tests/**/*.spec.ts', {
+  sortOrder: ['setup', 'new', 'edit', 'delete', 'view'],
+})
+```
 
 ## Usage
+
+### Example: Cypress
 
 ```ts
 import { sortedGlob } from 'glob-sort'
@@ -28,18 +40,18 @@ import { sortedGlob } from 'glob-sort'
 const specs = await sortedGlob('cypress/tests/**/*.spec*', {
   sortOrder: [
     // run in this order (anything not matching will come after, alphabetically)
-    'setup',
-    /new(?!-special)/i, // i.e. "new.spec" before "new-special.spec"
+    'setup',              // Exact match (case-insensitive)
+    /new(?!-special)/i,   // e.g. "new.spec" before "new-special.spec"
     'new',
     'edit',
-    /^delete.*/i,        // starts with
-    /^(?!.*history)/i,   // does not contain (place these last, in each folder)
+    /^delete/i,           // starts with "delete"
+    /^(?!.*history)/i,    // does not contain "history" (place last in each folder)
     'view',
   ],
 })
 ```
 
-### Usage in Cypress config
+#### Example Cypress Configuration
 
 ```ts
 import { defineConfig } from 'cypress'
@@ -48,34 +60,36 @@ import { sortedGlobSync } from 'glob-sort'
 export default defineConfig({
   e2e: {
     specPattern: sortedGlobSync('cypress/tests/**/*.spec*', {
-        sortOrder: ['setup', 'new', 'edit', /^delete.*/, 'view'],
-      })
-    ...
+      sortOrder: ['setup', 'new', 'edit', /^delete.*/, 'view'],
+    }),
+    // ...other config
   },
 })
 ```
 
-## How it works
+## How It Works
 
 The sorting algorithm applies three levels of ordering at each folder depth:
 
-1. **Numeric prefix priority**: Folders/files starting with numbers (e.g., `01-`, `02-`) are sorted numerically
-2. **Custom sort order**: Matches against your `sortOrder` array (strings use case-insensitive inclusion, regex uses pattern matching)
-3. **Alphabetical fallback**: When no other rules apply, sorts alphabetically
+1. **Numeric prefix priority**: Folders/files starting with numbers (e.g., `01-`, `02-`) sort numerically first
+2. **Custom sort order**: Matches against your `sortOrder` array in the order specified
+   - **String rules**: Match case-insensitively if the string appears anywhere in the filename
+   - **Regex rules**: Test against the filename using the provided pattern
+3. **Alphabetical fallback**: Items that don't match any rules sort alphabetically
 
-### Example
+### Detailed Example
 
-_Function config:_
+Given this configuration:
 
 ```ts
-const specs = sortedGlobSync('cypress/tests/**/*.spec*', {
+const specs = sortedGlobSync('cypress/tests/**/*.spec.ts', {
   sortOrder: [
     'setup',
     'booking',
     'entree',
     'appetizer',
     'user',
-    /^(?!.*history)/i,   // does not contain (place these last, in each folder)
+    /^(?!.*history)/i,   // Exclude "history" (pushes to end)
     /new(?!-?special)/i, // "new" before "new-special"
     'new',
     'edit',
@@ -87,7 +101,7 @@ const specs = sortedGlobSync('cypress/tests/**/*.spec*', {
 
 <table>
 <tr>
-<th width="50%">Before (File System Order, Alphabetical)</th>
+<th width="50%">Before (File System Order)</th>
 <th width="50%">After (Custom Sort)</th>
 </tr>
 <tr>
