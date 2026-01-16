@@ -29,7 +29,7 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "noUndeclaredDependencies": "off",
+        "noUndeclaredDependencies": "error",
         "noUnusedFunctionParameters": "error",
         "noUnusedImports": { "level": "error", "fix": "safe" },
         "useJsonImportAttributes": "error"
@@ -38,8 +38,6 @@
         "noDeprecatedImports": "off",
         "noFloatingPromises": "error",
         "noImportCycles": "error",
-        // This rule currently blows up Biome
-        //"noMisusedPromises": { "level": "error", "fix": "unsafe" },
         "noShadow": "error"
       },
       "performance": {
@@ -67,7 +65,7 @@
         "useDefaultSwitchClause": "error",
         "useEnumInitializers": "error",
         "useFilenamingConvention": "error",
-        "useImportType": "error",
+              "useImportType": "error",
         "useLiteralEnumMembers": "off",
         "useNumberNamespace": "error",
         "useShorthandAssign": "error",
@@ -89,6 +87,12 @@
     }
   },
   "files": {
-    "includes": ["**", "!**/coverage", "!**/dist", "!**/node_modules"]
+    "includes": [
+      "**",
+      "!!**/coverage",
+      "!!**/dist",
+      "!**/node_modules"
+    ]
   }
+  
 }
