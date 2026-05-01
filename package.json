@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bvandercar-vt/glob-sort"
+    "url": "https://github.com/bvandrc/glob-sort"
   },
   "type": "module",
   "source": "src/sortedGlob.ts",
