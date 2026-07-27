@@ -1,19 +1,6 @@
 {
   "name": "glob-sort",
   "version": "1.1.1",
-  "scripts": {
-    "prepack": "yarn build",
-    "build": "tsup-node",
-    "start": "tsup-node --watch",
-    "lint:check": "yarn biome check src",
-    "lint:fix": "yarn lint:check --write",
-    "lint": "yarn ts:check && yarn lint:check",
-    "test": "vitest",
-    "test:unit": "yarn test:coverage",
-    "test:watch": "yarn test --watch",
-    "test:coverage": "yarn test --coverage",
-    "ts:check": "tsc --noEmit"
-  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -36,9 +23,22 @@
     "name": "Blake Vandercar",
     "email": "bvandercar@outlook.com"
   },
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "pnpm@11.9.0",
   "engines": {
     "node": ">=22"
+  },
+    "scripts": {
+    "prepack": "pnpm build",
+    "build": "tsup-node",
+    "start": "tsup-node --watch",
+    "lint:check": "biome check src",
+    "lint:fix": "biome check src --write",
+    "lint": "pnpm ts:check && pnpm lint:check",
+    "test": "vitest",
+    "test:unit": "pnpm test:coverage",
+    "test:watch": "pnpm run test --watch",
+    "test:coverage": "pnpm run test --coverage",
+    "ts:check": "tsc --noEmit"
   },
   "dependencies": {},
   "devDependencies": {
@@ -51,6 +51,5 @@
     "tsup": "^8",
     "typescript": "^5",
     "vitest": "^4"
-  },
-  "resolutions": {}
+  }
 }
