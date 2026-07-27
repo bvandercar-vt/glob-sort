@@ -27,29 +27,31 @@
   "engines": {
     "node": ">=22"
   },
-    "scripts": {
+  "scripts": {
+    "__c0": "====================[ Build & Development ]======================",
     "prepack": "pnpm build",
     "build": "tsup-node",
     "start": "tsup-node --watch",
-    "lint:check": "biome check src",
-    "lint:fix": "biome check src --write",
-    "lint": "pnpm ts:check && pnpm lint:check",
+    "__c1": "====================[ Linting & Type Checking ]==================",
+    "check": "pnpm format && pnpm ts:check && pnpm lint:check",
+    "format": "npx biome check . --fix",
+    "ts:check": "tsc --noEmit",
+    "__c2": "====================[ Unit Testing ]=======================",
     "test": "vitest",
     "test:unit": "pnpm test:coverage",
     "test:watch": "pnpm run test --watch",
-    "test:coverage": "pnpm run test --coverage",
-    "ts:check": "tsc --noEmit"
+    "test:coverage": "pnpm run test --coverage"
   },
   "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "^2",
     "@types/mock-fs": "^4",
-    "@types/node": "^22",
+    "@types/node": "^24",
     "@vitest/coverage-v8": "^4",
     "@vitest/expect": "^4",
     "mock-fs": "^5",
     "tsup": "^8",
-    "typescript": "^5",
+    "typescript": "^7",
     "vitest": "^4"
   }
 }

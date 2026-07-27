@@ -27,7 +27,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "correctness": {
         "noUndeclaredDependencies": "error",
         "noUnusedFunctionParameters": "error",
@@ -35,10 +35,7 @@
         "useJsonImportAttributes": "error"
       },
       "nursery": {
-        "noDeprecatedImports": "off",
-        "noFloatingPromises": "error",
-        "noImportCycles": "error",
-        "noShadow": "error"
+        "noFloatingPromises": "error"
       },
       "performance": {
         "noAccumulatingSpread": "error",
@@ -65,7 +62,7 @@
         "useDefaultSwitchClause": "error",
         "useEnumInitializers": "error",
         "useFilenamingConvention": "error",
-              "useImportType": "error",
+        "useImportType": "error",
         "useLiteralEnumMembers": "off",
         "useNumberNamespace": "error",
         "useShorthandAssign": "error",
@@ -82,17 +79,14 @@
         "noConstantBinaryExpressions": "error",
         "noTsIgnore": "error",
         "noUnassignedVariables": "error",
-        "noUselessEscapeInString": "error"
+        "noUselessEscapeInString": "error",
+        "noDeprecatedImports": "error",
+        "noImportCycles": "error",
+        "noShadow": "error"
       }
     }
   },
   "files": {
-    "includes": [
-      "**",
-      "!!**/coverage",
-      "!!**/dist",
-      "!**/node_modules"
-    ]
+    "includes": ["**", "!!**/coverage", "!!**/dist", "!**/node_modules"]
   }
-  
 }
