@@ -27,7 +27,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "correctness": {
         "noUndeclaredDependencies": "error",
         "noUnusedFunctionParameters": "error",
@@ -35,17 +35,12 @@
         "useJsonImportAttributes": "error"
       },
       "nursery": {
-        "noDeprecatedImports": "off",
-        "noFloatingPromises": "error",
-        "noImportCycles": "error",
-        "noShadow": "error"
+        "noFloatingPromises": "error"
       },
       "performance": {
         "noAccumulatingSpread": "error",
-        "noAwaitInLoops": "off",
         "noDelete": "error",
         "noNamespaceImport": "error",
-        "noReExportAll": "off",
         "useTopLevelRegex": "error"
       },
       "style": {
@@ -53,19 +48,19 @@
         "noInferrableTypes": "error",
         "noParameterAssign": "error",
         "noSubstr": "error",
-        "noUnusedTemplateLiteral": { "level": "error", "fix": "safe" },
+        "noUnusedTemplateLiteral": "error",
         "noYodaExpression": "error",
         "useArrayLiterals": "error",
         "useAsConstAssertion": "error",
         "useAtIndex": "error",
-        "useBlockStatements": { "level": "error", "fix": "unsafe" },
+        "useBlockStatements": "error",
         "useCollapsedElseIf": "error",
         "useCollapsedIf": "error",
         "useDefaultParameterLast": "error",
         "useDefaultSwitchClause": "error",
         "useEnumInitializers": "error",
         "useFilenamingConvention": "error",
-              "useImportType": "error",
+        "useImportType": "error",
         "useLiteralEnumMembers": "off",
         "useNumberNamespace": "error",
         "useShorthandAssign": "error",
@@ -73,7 +68,7 @@
         "useConsistentObjectDefinitions": { "level": "error", "fix": "unsafe" },
         "useNumericSeparators": "error",
         "useObjectSpread": "error",
-        "useReadonlyClassProperties": { "level": "error", "fix": "unsafe" }
+        "useReadonlyClassProperties": "error"
       },
       "suspicious": {
         "noEmptyBlockStatements": "error",
@@ -82,17 +77,14 @@
         "noConstantBinaryExpressions": "error",
         "noTsIgnore": "error",
         "noUnassignedVariables": "error",
-        "noUselessEscapeInString": "error"
+        "noUselessEscapeInString": "error",
+        "noDeprecatedImports": "error",
+        "noImportCycles": "error",
+        "noShadow": "error"
       }
     }
   },
   "files": {
-    "includes": [
-      "**",
-      "!!**/coverage",
-      "!!**/dist",
-      "!**/node_modules"
-    ]
+    "includes": ["**", "!!**/coverage", "!!**/dist", "!**/node_modules"]
   }
-  
 }

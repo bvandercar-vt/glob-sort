@@ -1,7 +1,6 @@
 // https://www.typescriptlang.org/tsconfig
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "rootDir": ".",
     "outDir": "./dist",
     "target": "ESNext",
@@ -13,7 +12,6 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "declaration": false,
-    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -36,5 +34,5 @@
     "useDefineForClassFields": true,
     "verbatimModuleSyntax": false
   },
-  "include": ["src", "./*.ts"]
+  "include": ["./src", "./*.ts"]
 }
