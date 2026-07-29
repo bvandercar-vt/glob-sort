@@ -1,6 +1,31 @@
 {
   "name": "glob-sort",
-  "version": "1.1.1",
+  "version": "1.1.2",
+  "description": "Glob files and sort them in a custom order — by numeric folder prefixes and your own string/regex rules. Zero dependencies. Ideal for controlling test execution order in Cypress, Playwright, or Vitest.",
+  "keywords": [
+    "glob",
+    "sort",
+    "sorting",
+    "sort-order",
+    "custom-sort",
+    "glob-sort",
+    "sorted-glob",
+    "file-order",
+    "test-order",
+    "test-execution-order",
+    "spec-order",
+    "specpattern",
+    "cypress",
+    "playwright",
+    "vitest",
+    "jest",
+    "e2e",
+    "typescript"
+  ],
+  "homepage": "https://www.npmjs.com/package/glob-sort",
+  "bugs": {
+    "url": "https://github.com/bvandrc/glob-sort/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bvandrc/glob-sort"

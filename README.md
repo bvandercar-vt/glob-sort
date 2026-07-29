@@ -1,6 +1,8 @@
 # glob-sort
 
-A flexible file globbing utility that sorts results by numeric prefixes and custom ordering rules. Perfect for controlling test execution order in Cypress, Playwright, or any test framework.
+**Glob files and sort them in a custom order.** A zero-dependency glob utility that sorts matched file paths by numeric folder prefixes (`01-`, `02-`) and your own string or regex ordering rules, with an alphabetical fallback.
+
+Perfect for **controlling test execution order** in Cypress, Playwright, Vitest, Jest, or any test runner that takes a glob pattern — `fs.glob`, `fast-glob`, and `globby` all return paths in filesystem/alphabetical order, with no way to say "run `setup` first, `delete` last."
 
 ## Features
 
@@ -8,13 +10,18 @@ A flexible file globbing utility that sorts results by numeric prefixes and cust
 - **Custom sort order**: Define ordering rules using strings or regex patterns
 - **Alphabetical fallback**: Falls back to alphabetical sorting when no rules match
 - **Path-aware**: Sorts intelligently at each folder level in the path hierarchy
-- **TypeScript support**: Fully typed with TypeScript
+- **Sync and async**: `sortedGlob()` and `sortedGlobSync()` — use the sync one in config files
+- **TypeScript support**: Fully typed, ESM
 - **Zero dependencies**: Uses Node.js native `fs.promises.glob`
 
 ## Installation
 
 ```bash
 npm install glob-sort
+# or
+pnpm add glob-sort
+# or
+yarn add glob-sort
 ```
 
 **Requirements**: Node.js 22+ (uses native `fs.promises.glob`)
@@ -64,6 +71,20 @@ export default defineConfig({
     }),
     // ...other config
   },
+})
+```
+
+#### Example Playwright Configuration
+
+```ts
+import { defineConfig } from '@playwright/test'
+import { sortedGlobSync } from 'glob-sort'
+
+export default defineConfig({
+  // Playwright runs files in the order listed when fullyParallel is off
+  testMatch: sortedGlobSync('tests/**/*.spec.ts', {
+    sortOrder: ['setup', 'new', 'edit', /^delete/i],
+  }),
 })
 ```
 
@@ -272,13 +293,27 @@ Returns an array of sorted file paths.
 
 #### Parameters
 
-- **`pattern`** (string): Glob pattern to match files (e.g., `'cypress/tests**/*.spec.ts*'`)
-- **`options`** (object, optional): Extends all [Node.js glob options](https://nodejs.org/api/fs.html#fspromisesglobpattern-options) with:
-  - **`sortOrder`** (Array<string | RegExp>, optional): Custom ordering rules. Strings match case-insensitively via inclusion; RegExp patterns test against path segments.
+- **`pattern`** (`string | string[]`): Glob pattern(s) to match files (e.g., `'cypress/tests/**/*.spec.ts*'`)
+- **`options`** (`object`, optional): Extends all [Node.js glob options](https://nodejs.org/api/fs.html#fspromisesglobpattern-options) with:
+  - **`sortOrder`** (`Array<string | RegExp>`, optional): Custom ordering rules. Strings match case-insensitively via inclusion; RegExp patterns test against path segments.
 
 #### Returns
 
-`Promise<string[]>`: Array of sorted file paths
+Array of sorted file paths — `Promise<string[]>` from `sortedGlob`, `string[]` from `sortedGlobSync`.
+
+## FAQ
+
+**How do I control the order Cypress runs spec files in?**
+Pass `sortedGlobSync(...)` to `specPattern` in `cypress.config.ts`. Cypress runs specs in the order the array is given (with `experimentalRunAllSpecs` / `cypress run`), so the sorted array becomes your run order.
+
+**Does this work with Playwright / Vitest / Jest?**
+Yes — anywhere a glob result array can be handed to the runner (Playwright `testMatch`, Vitest `include`, Jest `testMatch`). The library just returns sorted paths.
+
+**How is this different from `glob`, `globby`, or `fast-glob`?**
+Those return matches in filesystem or alphabetical order. `glob-sort` adds numeric-prefix awareness and user-defined string/regex ordering rules applied at every folder level, with no dependencies.
+
+**Does it sort `10-` after `9-`?**
+Yes. Numeric prefixes are parsed as numbers, so `9-foo` comes before `10-foo` (unlike plain alphabetical sorting).
 
 ## License
 
