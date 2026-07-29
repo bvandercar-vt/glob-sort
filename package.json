@@ -75,7 +75,7 @@
     "@vitest/coverage-v8": "^4",
     "@vitest/expect": "^4",
     "mock-fs": "^5",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.22",
     "typescript": "^7",
     "vitest": "^4"
   }
