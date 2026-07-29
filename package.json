@@ -55,8 +55,8 @@
   "scripts": {
     "__c0": "====================[ Build & Development ]======================",
     "prepack": "pnpm build",
-    "build": "tsup-node",
-    "start": "tsup-node --watch",
+    "build": "tsdown",
+    "start": "tsdown --watch",
     "__c1": "====================[ Linting & Type Checking ]==================",
     "check": "npx biome check . && pnpm ts:check",
     "format": "npx biome check . --fix",
@@ -75,7 +75,7 @@
     "@vitest/coverage-v8": "^4",
     "@vitest/expect": "^4",
     "mock-fs": "^5",
-    "tsup": "^8",
+    "tsdown": "^0.22",
     "typescript": "^7",
     "vitest": "^4"
   }
