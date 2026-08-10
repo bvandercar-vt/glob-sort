@@ -41,8 +41,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      - name: Check package.json key order
-        uses: bvandrc/lint-package-json@v1
+      - name: Lint package.json
+        uses: bvandrc/lint-package-json@v2
 
       - name: Lint & Type Check
         run: pnpm run check
