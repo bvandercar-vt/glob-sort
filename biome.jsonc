@@ -1,13 +1,6 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["./conventions/biome.base.json"],
-  "linter": {
-    "rules": {
-      "style": {
-        "useFilenamingConvention": "error"
-      }
-    }
-  },
   "files": {
     "includes": ["**", "!!**/coverage", "!!**/dist", "!**/node_modules"]
   }
