@@ -41,6 +41,7 @@
       },
       "performance": {
         "noAccumulatingSpread": "error",
+        "noBarrelFile": "error",
         "noDelete": "error",
         "noNamespaceImport": "error"
       },
@@ -59,11 +60,13 @@
         "useDefaultParameterLast": "error",
         "useDefaultSwitchClause": "error",
         "useEnumInitializers": "error",
+        "useFilenamingConvention": "error",
         "useImportType": "error",
         "useNumberNamespace": "error",
         "useNumericSeparators": "error",
         "useObjectSpread": "error",
         "useReadonlyClassProperties": "error",
+        "useSelfClosingElements": "error",
         "useShorthandAssign": "error"
       },
       "suspicious": {
