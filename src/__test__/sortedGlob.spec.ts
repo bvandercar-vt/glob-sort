@@ -1,6 +1,7 @@
 import path from 'node:path'
 import mockFS from 'mock-fs'
 import { expect } from 'vitest'
+
 import { sortedGlob, sortedGlobSync } from '../sortedGlob'
 
 const testDir = 'cypress/tests'
