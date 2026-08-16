@@ -303,17 +303,13 @@ Array of sorted file paths — `Promise<string[]>` from `sortedGlob`, `string[]`
 
 ## FAQ
 
-**How do I control the order Cypress runs spec files in?**
-Pass `sortedGlobSync(...)` to `specPattern` in `cypress.config.ts`. Cypress runs specs in the order the array is given (with `experimentalRunAllSpecs` / `cypress run`), so the sorted array becomes your run order.
+**How do I control the order Cypress runs spec files in?** Pass `sortedGlobSync(...)` to `specPattern` in `cypress.config.ts`. Cypress runs specs in the order the array is given (with `experimentalRunAllSpecs` / `cypress run`), so the sorted array becomes your run order.
 
-**Does this work with Playwright / Vitest / Jest?**
-Yes — anywhere a glob result array can be handed to the runner (Playwright `testMatch`, Vitest `include`, Jest `testMatch`). The library just returns sorted paths.
+**Does this work with Playwright / Vitest / Jest?** Yes — anywhere a glob result array can be handed to the runner (Playwright `testMatch`, Vitest `include`, Jest `testMatch`). The library just returns sorted paths.
 
-**How is this different from `glob`, `globby`, or `fast-glob`?**
-Those return matches in filesystem or alphabetical order. `glob-sort` adds numeric-prefix awareness and user-defined string/regex ordering rules applied at every folder level, with no dependencies.
+**How is this different from `glob`, `globby`, or `fast-glob`?** Those return matches in filesystem or alphabetical order. `glob-sort` adds numeric-prefix awareness and user-defined string/regex ordering rules applied at every folder level, with no dependencies.
 
-**Does it sort `10-` after `9-`?**
-Yes. Numeric prefixes are parsed as numbers, so `9-foo` comes before `10-foo` (unlike plain alphabetical sorting).
+**Does it sort `10-` after `9-`?** Yes. Numeric prefixes are parsed as numbers, so `9-foo` comes before `10-foo` (unlike plain alphabetical sorting).
 
 ## License
 
